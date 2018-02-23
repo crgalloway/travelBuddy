@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Travel Dashboard</title>
+	<style>
+		table{
+			border-collapse: collapse;
+		}
+		tr:nth-child(even){
+			background: #fff
+		}
+		tr:nth-child(odd){
+			background: #eee
+		}
+		td{
+			border-right: 1px solid black;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div><a style="float: right;" href="/logout">Logout</a></div>
+	<h1>Hello, {{ activeName }}!</h1>
+	<div>
+		<h3>Your Trip Schedules</h3>
+		<table style="border: 1px solid black; width: 60%;">
+			<thead>
+				<tr style="font-weight: bold; background-color: #cccccc;">
+					<td>Destination</td>
+					<td>Travel Start Date</td>
+					<td>Travel End Date</td>
+					<td>Plan</td>
+				</tr>
+					
+			</thead>
+			<tbody>
+				{% for trip in yourPlans %}
+				<tr>
+					<td><a href="travels/destination/{{ trip.id }}">{{ trip.dest }}</a></td>
+					<td>{{ trip.start }}</td>
+					<td>{{ trip.end }}</td>
+					<td>{{ trip.desc }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<h3>Other User's Travel Plans</h3>
+		<table style="border: 1px solid black; width: 70%;">
+			<thead>
+				<tr style="font-weight: bold; background-color: #cccccc;">
+					<td>Name</td>
+					<td>Destination</td>
+					<td>Travel Start Date</td>
+					<td>Travel End Date</td>
+					<td>Do You Want to Join?</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for trip in otherPlans %}
+				<tr>
+					<td>{{ trip.started_by.name }}</td>
+					<td><a href="travels/destination/{{ trip.id }}">{{ trip.dest }}</a></td>
+					<td>{{ trip.start }}</td>
+					<td>{{ trip.end }}</td>
+					<td><a href="join/{{ trip.id }}">Join</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<a style="float: right;" href="/travels/add">Add a Travel Plan</a>
+	</div>
+</body>
+</html>

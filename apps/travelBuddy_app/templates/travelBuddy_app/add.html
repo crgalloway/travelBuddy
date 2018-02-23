@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Plan</title>
+</head>
+<body>
+	<div>
+		<div style="float: right;">
+			<a href="/travels">Home</a> &nbsp; <a href="/logout">Logout</a>
+		</div>
+	</div>
+	<h1>Add a Trip</h1>
+	<div style="width: 20%;">
+		<form action="/addTrip" method="post">
+			{% csrf_token %}
+			<ul style="list-style: none;">
+				<li><p>Destination:<input type="text" name="dest"></p></li>
+				<li><p>Description:<input type="text" name="desc"></p></li>
+				<li><p>Travel Date From:<input type="date" name="start"></p></li>
+				<li><p>Travel Date To:<input type="date" name="end"></p></li>
+			</ul>
+				<input type="hidden" name="userID" value="{{ request.session.activeUser }}">
+				<div>
+					<input style="float: right;" type="submit" value="Add">
+				</div>
+		</form>
+		{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}
+					<li class="{{ message.tags }}">{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+	</div>
+</body>
+</html>
